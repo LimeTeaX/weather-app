@@ -354,7 +354,45 @@ export default function Home() {
   };
 
   // Loading state untuk client-only content
-  if (!isClient || hourlyData.length === 0) {
+  if (!isClient) {
+    return (
+      <div className="relative z-10 min-h-screen p-4 md:p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-white/50">Loading forecast data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading && !weather) {
+    return (
+      <div className="relative z-10 min-h-screen p-4 md:p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-white/50">Fetching weather data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && !weather) {
+    return (
+      <div className="relative z-10 min-h-screen p-4 md:p-6 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-400 text-lg mb-4">{error}</p>
+          <button
+            onClick={() => loadWeather('Medan, ID', true)}
+            className="px-4 py-2 bg-white/20 rounded-xl text-white hover:bg-white/30 transition"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!weather || hourlyData.length === 0) {
     return (
       <div className="relative z-10 min-h-screen p-4 md:p-6 flex items-center justify-center">
         <div className="text-center">

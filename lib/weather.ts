@@ -1,7 +1,5 @@
 // lib/weather.ts - Full fixed version with Nominatim geocoding
 
-import { fetchWeatherApi } from 'openmeteo';
-
 export interface WeatherData {
   address: string;
   currentConditions: CurrentConditions;
